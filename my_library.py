@@ -32,3 +32,13 @@ def naive_bayes(table, evidence_row, target):
   prob_one = cond_probs_product(table, evidence_row, target, 1) * prior_prob(table, target, 1)
   neg, pos = compute_probs(prob_zero, prob_one)
   return [neg, pos]
+
+def metrics(single_parameter):
+  tp = sum([1 if pair==[1,1] else 0 for pair in single_parameter])
+  fp = sum([1 if pair==[1,0] else 0 for pair in single_parameter])
+  fn = sum([1 if pair==[0,1] else 0 for pair in single_parameter])
+  precision = 0 if (tp + fp) == 0 else tp / (tp + fp) 
+  recall = 0 if (tp + fn) == 0 else tp / (tp + fn)
+  f1 = 0 if (precision + recall) == 0 else (precision * recall) / (precision + recall)
+  accuracy = sum([p==a for p,a in single_parameter])/len(single_parameter)
+  return {'Precision': precision, 'Recall': recall, 'F1': f1, 'Accuracy': accuracy}
