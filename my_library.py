@@ -37,7 +37,7 @@ def metrics(single_parameter):
   assert isinstance(single_parameter, list), f'Expecting Parameter to be a list but instead is {type(single_parameter)}'
   assert all(isinstance(item, list) for item in single_parameter), f'Expecting Parameter to be a list of lists'
   assert all(len(item) == 2 for item in single_parameter), f'Expecting Parameter to be a zipped list'
-  assert all(isinstance(item[0], int) and isinstance(item[1], int) for item in single_parameter), f'Expecting each value in pair to be an int'
+  assert all(isinstance(item[0], (int, float)) and isinstance(item[1], (int, float)) for item in single_parameter), f'Expecting each value in pair to be an int'
   assert all(item[0] >= 0 and item[1] >= 0 for item in single_parameter), f'Expecting each value in pair to be >= 0'
   tp = sum([1 if pair==[1,1] else 0 for pair in single_parameter])
   fp = sum([1 if pair==[1,0] else 0 for pair in single_parameter])
